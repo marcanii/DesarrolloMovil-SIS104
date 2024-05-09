@@ -399,7 +399,7 @@ public class WSActivity extends AppCompatActivity {
         textViewUsers.append("Tiempo de ejecución: " + tiempo + " ms\n\n");
     }
     public void getTiendaOnline2() {
-        String URL_WS = "http://192.168.13.122/WSMio/";
+        String URL_WS = "http://192.168.0.6/WSMio/";
         Gson gson = new GsonBuilder().setLenient().create();
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -447,17 +447,43 @@ public class WSActivity extends AppCompatActivity {
                     @Override
                     public void onComplete() {
                         Log.d("Datos", "Finalizado con éxito onComplete ");
+
+                        WSUsuarios usuario = listaUsuarios.get(2);
+                        WSProductos producto = listaProductos.get(2);
+                        WSComentarios comentario = listaComentarios.get(2);
+                        WSPedidos pedido = listaPedidos.get(2);
+
+                        StringBuilder dato = new StringBuilder();
+                        dato.append("USUARIO: \n");
+                        dato.append("ID: ").append(usuario.getId()).append("\n");
+                        dato.append("Nombre: ").append(usuario.getNombre()).append("\n");
+                        dato.append("Edad: ").append(usuario.getEdad()).append("\n");
+                        dato.append("Email: ").append(usuario.getEmail()).append("\n");
+                        dato.append("Direccion: ").append(usuario.getDireccion()).append("\n\n");
+
+                        dato.append("PRODUCTO: \n");
+                        dato.append("ID: ").append(producto.getId()).append("\n");
+                        dato.append("Nombre: ").append(producto.getNombre()).append("\n");
+                        dato.append("Precio: ").append(producto.getPrecio()).append("\n");
+                        dato.append("Descripcion: ").append(producto.getDescripcion()).append("\n");
+                        dato.append("Categoria: ").append(producto.getCategoria()).append("\n\n");
+
+                        dato.append("COMENTARIO: \n");
+                        dato.append("ID: ").append(comentario.getId()).append("\n");
+                        dato.append("Usuario ID: ").append(comentario.getUsuarioId()).append("\n");
+                        dato.append("Producto ID: ").append(comentario.getProductoId()).append("\n");
+                        dato.append("Comentario: ").append(comentario.getComentario()).append("\n");
+                        dato.append("Fecha Comentario: ").append(comentario.getFechaComentario()).append("\n\n");
+
+                        dato.append("PEDIDO: \n");
+                        dato.append("ID: ").append(pedido.getId()).append("\n");
+                        dato.append("Usuario ID: ").append(pedido.getUsuarioId()).append("\n");
+                        dato.append("Producto ID: ").append(pedido.getProductoId()).append("\n");
+                        dato.append("Cantidad: ").append(pedido.getCantidad()).append("\n");
+                        dato.append("Fecha pedido: ").append(pedido.getFechaPedido()).append("\n\n");
+
+                        textViewUsers.setText(dato.toString());
                     }
                 });
-            WSUsuarios usuario = listaUsuarios.get(2);
-            StringBuilder usuarios = new StringBuilder();
-            usuarios.append("USUARIO: \n");
-            usuarios.append("ID: ").append(usuario.getId()).append("\n");
-            usuarios.append("Nombre: ").append(usuario.getNombre()).append("\n");
-            usuarios.append("Edad: ").append(usuario.getEdad()).append("\n");
-            usuarios.append("Email: ").append(usuario.getEmail()).append("\n");
-            usuarios.append("Direccion: ").append(usuario.getDireccion()).append("\n\n");
-            textViewUsers.append(usuarios.toString());
-
     }
 }
