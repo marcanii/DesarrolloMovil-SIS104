@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         val buttonGrafico = findViewById<Button>(R.id.buttonGrafico)
         val buttonCrud = findViewById<Button>(R.id.buttonCrud)
         val buttonCalculadoraBasica = findViewById<Button>(R.id.buttonCalculadoraBasica)
+        val buttonWSTienda = findViewById<Button>(R.id.buttonWSTienda)
 
         buttonSalir.setOnClickListener{
             finish()
@@ -43,6 +44,10 @@ class MainActivity : AppCompatActivity() {
 
         buttonCalculadoraBasica.setOnClickListener {
             val intent = Intent(this@MainActivity, CalculadoraBasicaActivity::class.java)
+            startActivity(intent)
+        }
+        buttonWSTienda.setOnClickListener {
+            val intent = Intent(this@MainActivity, WSTiendaActivity::class.java)
             startActivity(intent)
         }
     }
