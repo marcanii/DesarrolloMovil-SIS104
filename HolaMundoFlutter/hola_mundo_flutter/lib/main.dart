@@ -11,39 +11,44 @@ class Principal extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Saludo'),
-        ),
+        appBar: AppBar(title: const Text('Contador de clicks')),
         body: const Center(
-          child: MiClaseEstatica(),
+          child: ContenidoDinamico(),
         ),
       ),
     );
   }
 }
 
-class MiClaseEstatica extends StatelessWidget {
-  const MiClaseEstatica({super.key});
+class ContenidoDinamico extends StatefulWidget {
+  const ContenidoDinamico({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Text('Hola Mundo!',
-        style: TextStyle(
-            fontSize: 24, color: Colors.blue, fontWeight: FontWeight.bold));
-  }
+  _ContenidoDinamicoState createState() => _ContenidoDinamicoState();
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class _ContenidoDinamicoState extends State<ContenidoDinamico> {
+  int _cont = 0;
+
+  void _incrementarContador() {
+    setState(() {
+      _cont++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        const Text('Presiona el botón:', style: TextStyle(fontSize: 20)),
+        Text('$_cont', style: const TextStyle(fontSize: 23)),
+        ElevatedButton(
+            onPressed: _incrementarContador,
+            child: Text('Click aquí'),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 179, 214, 243))),
+      ],
     );
   }
 }
