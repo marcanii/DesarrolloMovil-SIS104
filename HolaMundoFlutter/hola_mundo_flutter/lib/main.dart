@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Calculadora.dart';
 
 void main() {
   runApp(const Principal());
@@ -9,46 +10,63 @@ class Principal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Contador de clicks')),
-        body: const Center(
-          child: ContenidoDinamico(),
-        ),
-      ),
+    return const MaterialApp(
+      home: Operaciones(),
     );
   }
 }
 
-class ContenidoDinamico extends StatefulWidget {
-  const ContenidoDinamico({super.key});
+class Operaciones extends StatefulWidget {
+  const Operaciones({super.key});
 
   @override
-  _ContenidoDinamicoState createState() => _ContenidoDinamicoState();
+  State<Operaciones> createState() => _OperacionesState();
 }
 
-class _ContenidoDinamicoState extends State<ContenidoDinamico> {
-  int _cont = 0;
+class _OperacionesState extends State<Operaciones> {
+  final TextEditingController num1 = TextEditingController();
+  final TextEditingController num2 = TextEditingController();
+  final Calculadora calculadora = Calculadora();
+  int _resultado = 0;
 
-  void _incrementarContador() {
+  void _sumar() {
     setState(() {
-      _cont++;
+      _resultado = calculadora.sumar(
+        int.tryParse(num1.text) ?? 0,
+        int.tryParse(num2.text) ?? 0,
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        const Text('Presiona el botón:', style: TextStyle(fontSize: 20)),
-        Text('$_cont', style: const TextStyle(fontSize: 23)),
-        ElevatedButton(
-            onPressed: _incrementarContador,
-            child: Text('Click aquí'),
-            style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 179, 214, 243))),
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Calculadora'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextField(
+              controller: num1,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(labelText: 'Número 1'),
+            ),
+            TextField(
+              controller: num2,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(labelText: 'Número 2'),
+            ),
+            ElevatedButton(
+              onPressed: _sumar,
+              child: const Text('Sumar'),
+            ),
+            Text('Resultado: $_resultado'),
+          ],
+        ),
+      ),
     );
   }
 }
