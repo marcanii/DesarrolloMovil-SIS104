@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'Calculadora.dart';
+import 'package:hola_mundo_flutter/custom_button.dart';
+import 'package:hola_mundo_flutter/detailscreen1.dart';
+import 'package:hola_mundo_flutter/detailscreen2.dart';
+import 'package:hola_mundo_flutter/Complejos.dart';
 
 void main() {
   runApp(const Principal());
@@ -7,63 +10,71 @@ void main() {
 
 class Principal extends StatelessWidget {
   const Principal({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Operaciones(),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      home: MyHomePage(),
+      routes: <String, WidgetBuilder>{
+        '/details1': (BuildContext context) => new DetailScreen1(),
+        '/details2': (BuildContext context) => new DetailScreen2(),
+        '/complejos': (BuildContext context) => ComplexCalculator(),
+      },
     );
   }
 }
 
-class Operaciones extends StatefulWidget {
-  const Operaciones({super.key});
-
-  @override
-  State<Operaciones> createState() => _OperacionesState();
-}
-
-class _OperacionesState extends State<Operaciones> {
-  final TextEditingController num1 = TextEditingController();
-  final TextEditingController num2 = TextEditingController();
-  final Calculadora calculadora = Calculadora();
-  int _resultado = 0;
-
-  void _sumar() {
-    setState(() {
-      _resultado = calculadora.sumar(
-        int.tryParse(num1.text) ?? 0,
-        int.tryParse(num2.text) ?? 0,
-      );
-    });
-  }
-
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
       appBar: AppBar(
-        title: const Text('Calculadora'),
+        title: const Text('TestProject'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(50.0),
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              controller: num1,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Número 1'),
+          children: [
+            const SizedBox(height: 20),
+            CustomButton(
+              text: 'Base de Datos',
+              color: Colors.green.shade300,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/details2');
+              },
             ),
-            TextField(
-              controller: num2,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Número 2'),
+            const SizedBox(height: 20),
+            CustomButton(
+              text: 'Calculadora',
+              color: Colors.pink.shade200,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/details2');
+              },
             ),
-            ElevatedButton(
-              onPressed: _sumar,
-              child: const Text('Sumar'),
+            const SizedBox(height: 20),
+            CustomButton(
+              text: 'Complejos',
+              color: Colors.blue.shade300,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/complejos');
+              },
             ),
-            Text('Resultado: $_resultado'),
+            const SizedBox(height: 20),
+            CustomButton(
+              text: 'Web Services',
+              color: Colors.orange.shade300,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/details2');
+              },
+            ),
+            const SizedBox(height: 20),
+            CustomButton(
+              text: 'Salir',
+              color: Colors.red.shade500,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/details2');
+              },
+            ),
           ],
         ),
       ),
